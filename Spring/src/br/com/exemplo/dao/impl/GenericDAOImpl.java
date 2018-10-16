@@ -60,4 +60,10 @@ public class GenericDAOImpl<T,K> implements GenericDAO<T, K>{
 		}
 		
 	}
+
+	@Override
+	public List<T> listar() {
+		List<T> lista = em.createQuery(" from " + classe).getResultList();
+		return lista;
+	}
 }

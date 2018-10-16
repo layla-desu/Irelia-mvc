@@ -22,6 +22,19 @@
 				<form:errors path="preco" cssClass="text-danger"/>
 			</div>
 			<div class="form-group">
+				<form:label path="categoria">Categoria</form:label>
+				<form:select path="categoria.id" cssClass="form-control">
+				<form:options items="${categorias }" itemLabel="descricao" itemValue="id"/>
+				</form:select>
+				<form:errors path="categoria"/>
+			</div>
+			<div class="form-group">
+				<form:label path="tipo">Tipo Produto</form:label>
+				<form:select path="tipo" cssClass="form-control">
+				<form:options items="${tipoProdutos }" itemLabel="label"/>
+				</form:select>
+			</div>
+			<div class="form-group">
 				<input type="submit" value="Salvar" class="btn btn-primary"/>
 			</div>
 		</form:form>

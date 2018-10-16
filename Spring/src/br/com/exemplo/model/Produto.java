@@ -1,9 +1,14 @@
 package br.com.exemplo.model;
 
+import java.util.Calendar;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,6 +28,33 @@ public class Produto {
 	@DecimalMin(value="0", message="Preço deve ser válido!")
 	private double preco;
 	
+	@ManyToOne
+	private Categoria categoria;
+	
+	@NotNull
+	private TipoProduto tipo;
+	
+	@Temporal(value=TemporalType.TIMESTAMP)
+	private Calendar dataCriacao;
+	
+	public Categoria getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+	public TipoProduto getTipo() {
+		return tipo;
+	}
+	public void setTipo(TipoProduto tipo) {
+		this.tipo = tipo;
+	}
+	public Calendar getDataCriacao() {
+		return dataCriacao;
+	}
+	public void setDataCriacao(Calendar dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
 	public long getId() {
 		return id;
 	}

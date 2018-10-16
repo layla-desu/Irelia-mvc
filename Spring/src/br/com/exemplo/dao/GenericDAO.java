@@ -1,5 +1,7 @@
 package br.com.exemplo.dao;
 
+import java.util.List;
+
 public interface GenericDAO<T,K> {
 
 	void cadastrar(T tabela);
@@ -11,4 +13,6 @@ public interface GenericDAO<T,K> {
 	T buscar(K codigo);
 	
 	void commit() throws Exception;
+	
+	List<T> listar();
 }

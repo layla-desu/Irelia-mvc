@@ -14,18 +14,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.exemplo.dao.CategoriaDAO;
 import br.com.exemplo.dao.ProdutoDAO;
 import br.com.exemplo.model.Produto;
+import br.com.exemplo.model.TipoProduto;
 
 @Controller
 @RequestMapping("/produto")
 public class ProdutoController {
 	@Autowired
 	private ProdutoDAO dao;
+	
+	@Autowired
+	private CategoriaDAO categoriaDao;
 
 	@GetMapping("cadastrar")
 	public ModelAndView abrirForm(Produto produto){
-		return new ModelAndView("produto/cadastro");
+		ModelAndView retorno = new ModelAndView("produto/cadastro");
+		retorno.addObject("categorias", categoriaDao.listar());
+		retorno.addObject("tipoProdutos", TipoProduto.values());
+		return retorno;
 	}
 
 	@PostMapping(value="cadastrar")
