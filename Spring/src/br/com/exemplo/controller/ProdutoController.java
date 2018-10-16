@@ -2,13 +2,17 @@ package br.com.exemplo.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.exemplo.dao.ProdutoDAO;
 import br.com.exemplo.model.Produto;
@@ -20,17 +24,23 @@ public class ProdutoController {
 	private ProdutoDAO dao;
 
 	@GetMapping("cadastrar")
-	public String abrirForm(){
-		return "produto/cadastro";
+	public ModelAndView abrirForm(Produto produto){
+		return new ModelAndView("produto/cadastro");
 	}
 
 	@PostMapping(value="cadastrar")
 	@Transactional
-	public ModelAndView processarForm(Produto produto){
-		ModelAndView retorno = new ModelAndView("produto/sucesso");
-		retorno.addObject("prod", produto);
-		dao.cadastrar(produto);
-		return retorno;
+	public ModelAndView processarForm(@Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes){
+		if (result.hasErrors()){
+			return abrirForm(produto);
+		}
+		try {
+			dao.cadastrar(produto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		redirectAttributes.addFlashAttribute("msg","Produto cadastrado!");
+		return new ModelAndView("redirect:/produto/listar");
 	}
 	
 	@GetMapping(value="listar")

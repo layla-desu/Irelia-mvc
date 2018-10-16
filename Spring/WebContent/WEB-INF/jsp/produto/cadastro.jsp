@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <tags:template title="Cadastro de Produto">
 	<jsp:attribute name="scripts">
 		<!-- Código JS... -->
@@ -8,17 +9,22 @@
 	<jsp:body>
 		<!-- Código da página... -->
 		<h3>Cadastro de Produto</h3>
-		<form action="cadastrar" method="post">
+		<c:url value="/produto/cadastrar" var="action"/>
+		<form:form action="${action }" method="post" commandName="produto">
 			<div class="form-group">
-			    <label for="titulo">Titulo:</label>
-			    <input type="text" name="titulo" class="form-control" id="titulo">
-			  </div>
-			  <div class="form-group">
-			    <label for="preco">Preço:</label>
-			    <input type="text" name="preco" class="form-control" id="preco">
-			  </div>
-			<button type="submit" class="btn btn-default">Salvar</button>
-		</form>
+				<form:label path="titulo">Título</form:label>
+				<form:input path="titulo" cssClass="form-control"/>
+				<form:errors path="titulo" cssClass="text-danger"/>
+			</div>
+			<div class="form-group">
+				<form:label path="preco">Preço</form:label>
+				<form:input path="preco" cssClass="form-control"/>
+				<form:errors path="preco" cssClass="text-danger"/>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Salvar" class="btn btn-primary"/>
+			</div>
+		</form:form>
 		<br>
 		<h3>Nossos vídeos</h3>
 		<h4>Fullmetal Alchemist</h4>

@@ -7,6 +7,11 @@
 		<!-- Código JS... -->
 	</jsp:attribute>
 	<jsp:body>
+		<c:if test="${not empty msg }">
+			<div class="alert alert-success">
+				${msg }
+			</div>
+		</c:if>
 		<h4>Produtos:</h4>
 		<table class="table">
 		  <thead>
